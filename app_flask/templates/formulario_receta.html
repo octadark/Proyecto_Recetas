@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ES">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Login/Registro Recetas </title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{url_for('static', filename='/css/styles.css')}}">
+    </head>
+    <body>
+        <main class="container">
+            <div class="row">
+                <h2 class="col-6"> Agregar una receta </h2>
+                <form class="col-3" action="/recetas" method="GET">
+                    <button class="btn btn-primary">
+                        Todas las recetas
+                    </button>
+                </form>
+                <form class="col-3" action="/procesa/logout" method="POST">
+                    <button class="btn btn-secondary">
+                        Logout 
+                    </button>
+                </form>
+            </div>
+            <div class="row d-flex gap-5 justify-content-center">
+                <form method="POST" action="/crear/receta">
+                    <div>
+                        <label for="nombre" class="form-label"> 
+                            Nombre:
+                        </label>
+                        <input type="text" id="nombre" name="nombre" class="form-control">
+                        {% for mensaje in get_flashed_messages(category_filter=['error_nombre']) %}
+                            <div class="error alert alert-danger">
+                                {{mensaje}}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        <label for="descripcion" class="form-label"> 
+                            Descripcion:
+                        </label>
+                        <textarea id="descripcion" name="descripcion" class="form-control"></textarea>
+                        {% for mensaje in get_flashed_messages(category_filter=['error_descripcion']) %}
+                            <div class="error alert alert-danger">
+                                {{mensaje}}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        <label for="instrucciones" class="form-label"> 
+                            Instrucciones:
+                        </label>
+                        <textarea id="instrucciones" name="instrucciones" class="form-control"></textarea>
+                        {% for mensaje in get_flashed_messages(category_filter=['error_instrucciones']) %}
+                            <div class="error alert alert-danger">
+                                {{mensaje}}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        <label for="fecha_coccion" class="form-label"> 
+                            Fecha en que se cocinó:
+                        </label>
+                        <input type="date" id="fecha_coccion" name="fecha_coccion" class="form-control">
+                        {% for mensaje in get_flashed_messages(category_filter=['error_fecha_coccion']) %}
+                            <div class="error alert alert-danger">
+                                {{mensaje}}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div>
+                        <label class="form-label"> 
+                            Se necesitan menos de 30 minutos?
+                        </label>
+                        <label for="menos_30_si" class="form-label"> 
+                            Si
+                        </label>
+                        <input type="radio" id="menos_30_si" name="menos_30" value="1">
+                        <label for="menos_30_no" class="form-label" > 
+                            No
+                        </label>
+                        <input type="radio" id="menos_30_no" name="menos_30" value="0">
+                        {% for mensaje in get_flashed_messages(category_filter=['error_menos_30']) %}
+                            <div class="error alert alert-danger">
+                                {{mensaje}}
+                            </div>
+                            {% endfor %}
+                    </div>
+                    <button class="btn btn-success"> Crear receta </button>
+                </form>
+            </div>
+        </main>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>    
+    </body>
+</html>
